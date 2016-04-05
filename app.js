@@ -22,7 +22,7 @@ var app = express();
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 
-
+app.use("/data",express.static(__dirname + '/data'));
 
 
 
@@ -37,16 +37,7 @@ app.use(function (req, res, next) {
 });
 
 
-// setting socket.io
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var funny_chat = require('./routes/esb/chat');
-var chat_io = io.of('/chat').on('connection', function (socket) {
-  funny_chat(socket, chat_io);
-});
-
-
 // start server on the specified port and binding host
-http.listen(appEnv.port, '0.0.0.0', function() {
+app.listen(appEnv.port, '0.0.0.0', function() {
   console.log("server starting on " + appEnv.url);
 });

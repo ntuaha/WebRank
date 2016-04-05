@@ -2,6 +2,7 @@ const jsdom = require("node-jsdom");
 const fs = require("fs");
 const jquery = fs.readFileSync(__dirname+"/jquery.js", "utf-8");
 const csvWriter = require('csv-write-stream');
+const util = require('./util');
 
 // https://stackoverflow.com/questions/1418050/string-strip-for-javascript
 if(typeof(String.prototype.trim) === "undefined"){
@@ -52,7 +53,7 @@ function mergeData(sets){
 
 function outputData(filename,data){
   var writer = csvWriter();
-  writer.pipe(fs.createWriteStream(__dirname+'/'+filename));
+  writer.pipe(fs.createWriteStream(filename));
   for(var i in data){
     writer.write(data[i]);
   }
@@ -72,8 +73,6 @@ function getDateString(d){
   var sec = d.getSeconds();
   sec = (sec<10)?'0'+sec:sec;
   return year+month+day+hour+min+sec;
-  //return year+"-"+month+"-"day+" "+hour+":"+min+":"+sec;
-  //YYYYMMDDhhmmss
 }
 
 function main(){
@@ -91,7 +90,7 @@ function main(){
     var sorted_data = data.sort(function(a,b){
       return a.count - b.count;
     });
-    outputData(getDateString(new Date())+".csv",sorted_data);
+    outputData(__dirname+"/../data/"+util.getDateString(new Date())+".csv",sorted_data);
   });
 }
 main();
