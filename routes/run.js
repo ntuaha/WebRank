@@ -106,6 +106,11 @@ tasks.push(run("http://www.alexa.com/siteinfo/citibank.com.tw",time_string,"Citi
 tasks.push(run("http://www.alexa.com/siteinfo/sinopac.com",time_string,"sinopac","永豐銀行"));
 tasks.push(run("http://www.alexa.com/siteinfo/taishinbank.com.tw",time_string,"taishinbank","台新銀行"));
 tasks.push(run("http://www.alexa.com/siteinfo/firstbank.com.tw",time_string,"firstbank","第一銀行"));
+tasks.push(run("http://www.alexa.com/siteinfo/mybank.com.tw",time_string,"cathaybk","國泰世華"));
+tasks.push(run("http://www.alexa.com/siteinfo/hncb.com.tw",time_string,"hncb","華南銀行"));
+tasks.push(run("http://www.alexa.com/siteinfo/fubon.com",time_string,"fubon","富邦銀行"));
+tasks.push(run("http://www.alexa.com/siteinfo/post.gov.tw",time_string,"post","郵局"));
+tasks.push(run("http://www.alexa.com/siteinfo/bot.com.tw",time_string,"taiwanbank","臺灣銀行"));
 
 Promise.all(tasks).then(function(data){
   data = data.sort(function(a,b){
