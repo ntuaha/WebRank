@@ -1,3 +1,4 @@
 node_modules
 data
 rawdata
+.DS_Store
