@@ -1,25 +1,21 @@
 const path = require('path');
-
-/* phantomjs */
-const childProcess = require('child_process');
-const phantomjs = require('phantomjs-prebuilt');
-
 /* jquery parse */
 const jsdom = require("node-jsdom");
 const fs = require("fs");
 
 /* jquery source code */
 const jquery = fs.readFileSync(__dirname+"/jquery.js", "utf-8");
-const exec_js_path = path.join(__dirname, '/alexa.js');
 const csv = require("fast-csv");
  
 const webdriver = require('selenium-webdriver'),
     By = webdriver.By,
+    Browser = webdriver.Browser,
     until = webdriver.until;
 
 
 const driver = new webdriver.Builder()
-    .forBrowser('chrome')
+    /*.forBrowser('chrome')*/
+    .forBrowser(Browser.PHANTOM_JS)
     .build();
 
 /*
@@ -35,26 +31,6 @@ company: 提供company名字
 輸出為 {"categories":分類1|分類2|分類3...}
 */
 
-function extractInfo(in_file,data){
-  return new Promise(function(resolve){
-    jsdom.env({
-      "file": in_file,
-      /*"html":page_source*/
-      "src": [jquery],
-      "done": function(error,window){
-          var $ = window.$;                   
-          // 抓取分類 
-          data.categories  = $("#category_link_table tr[class=' ']").text().trim().split("\n").map(function(d){ return d.trim()}).join(' | ');
-          //remove webpage file
-          fs.unlinkSync(in_file);          
-          resolve(data);
-      }
-    });
-  });
-}
-
-
-/* 根據資料時間, 進行*/
 function extractData(href,time_string,company_name){
   return new Promise(function(resolve){
     driver.get(href);
@@ -72,30 +48,7 @@ function extractData(href,time_string,company_name){
           }
         });
     });
-
-
   });
-
-
-
-
-  /*
-  return new Promise(function(resolve){
-    var file_filepath = __dirname+"/../rawdata/"+company_name+"_"+time_string+".html";
-    var childArgs = [
-      exec_js_path,
-      [href,file_filepath].join(",")
-    ];
-    // 用phantomjs 將網頁資料讀取下來 
-    childProcess.execFile(phantomjs.path, childArgs, function(err, stdout, stderr) {
-      if(err){
-        console.log("stderr:" + stderr);
-      }
-      console.log("RUN",company_name);
-      resolve(file_filepath);
-    });
-  });
-  */
 }
 
 /* 執行程式 */
@@ -107,14 +60,17 @@ function extract(records,i,time_string,f){
     console.log("current",i);    
     var d = records[i];
     console.log("data",d);
-    fs.writeSync(f,[d.count,d.title,d.href,data,d.description].join(",")+"\n");
+    fs.writeSync(f,[d.count,d.title,d.href,'"'+data+'"','"'+d.description+'"'].join(",")+"\n");
     i = i+1;    
     console.log("next",i);
     //決定結束點
     if(i>=records.length){
       fs.closeSync(f);
+      driver.quit();
     }else{      
       extract(records,i,time_string,f);
+      global.gc();
+
     }
   });
 }
@@ -122,7 +78,6 @@ function extract(records,i,time_string,f){
 function run(records,time_string){
   var f = fs.openSync(__dirname+"/../data/alexa_categories_"+time_string+".csv","w+");
   fs.writeSync(f,"count,title,href,categories,description\n");
-  records.length=5;
   extract(records,0,time_string,f);
 }
 
