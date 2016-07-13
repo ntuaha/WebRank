@@ -1,3 +1,6 @@
+/* output infomation */
+const fs = require("fs");
+const csvWriter = require('csv-write-stream');
 
 function getDateString(d){
   var year = d.getFullYear();
@@ -16,7 +19,17 @@ function getDateString(d){
 }
 
 
+function writeToCSV(data,filename){
+  var writer = csvWriter();
+  writer.pipe(fs.createWriteStream(filename));
+  for(var i in data){
+    writer.write(data[i]);
+  }
+  writer.end();
+}
+
 
 module.exports = {
-  "getDateString": getDateString
+  "getDateString": getDateString,
+  "writeToCSV": writeToCSV
 };

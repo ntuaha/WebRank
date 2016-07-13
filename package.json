@@ -1,24 +1,25 @@
 {
-	"name": "WebRank",
-	"version": "0.0.1",
-	"description": "for alexa and similarweb",
-	"scripts": {
-		"start": "node app.js"
-	},
-	"dependencies": {
-		"express": "4.12.x",
-		"cfenv": "1.0.x",
-		"xml2js": "~0.4.16",
-		"request": "~2.69.0",
-		"socket.io": "~1.4.5",
-		"multer": "~1.1.0",
-		"phantomjs-prebuilt": "2.1.6",
-		"node-jsdom": "3.1.5",
-		"csv-write-stream": "1.x.x"
-	},
-	"license":"CC-BY-NC-SA-4.0",
-	"repository": {},
-	"engines": {
-		"node": "5.9.x"
-	}
+  "name": "WebRank",
+  "version": "0.0.2",
+  "description": "for alexa and similarweb",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "cfenv": "1.0.x",
+    "csv-write-stream": "1.x.x",
+    "express": "4.12.x",
+    "multer": "~1.1.0",
+    "node-jsdom": "3.1.5",
+    "phantomjs-prebuilt": "^2.1.7",
+    "request": "~2.69.0",
+    "socket.io": "~1.4.5",
+    "webpage": "^0.3.0",
+    "xml2js": "~0.4.16"
+  },
+  "license": "CC-BY-NC-SA-4.0",
+  "repository": {},
+  "engines": {
+    "node": "6.x.x"
+  }
 }
