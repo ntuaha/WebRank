@@ -3,7 +3,7 @@
 ## 讀取Alexa
 
 - 抓下台灣前500大排名  node ./routes/alexa_rank.js
-- 抓下進入500大排名銀行  node ./routes/run.js
+- 抓下銀行  node ./routes/run.js
 
 ## 下載資料
 

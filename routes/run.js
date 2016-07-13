@@ -78,7 +78,8 @@ function extractData(href,time_string,company){
     var html_filepath = __dirname+"/../rawdata/"+company+"_"+time_string+".html";
     var childArgs = [
       exec_js_path,
-      [href,html_filepath]
+      //[href,html_filepath]
+      [href,html_filepath].join(",")
     ];
     childProcess.execFile(phantomjs.path, childArgs, function(err, stdout, stderr) {
       if(err){
