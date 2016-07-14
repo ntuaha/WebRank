@@ -70,7 +70,6 @@ function extract(records,i,time_string,f){
     }else{      
       extract(records,i,time_string,f);
       global.gc();
-
     }
   });
 }
