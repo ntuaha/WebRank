@@ -12,7 +12,7 @@ function getDateString(d){
   var sec = d.getSeconds();
   sec = (sec<10)?'0'+sec:sec;
   //return year+month+day+hour+min+sec;
-  return year+month+day;
+  return year.toString()+month.toString()+day.toString();
 }
 
 
