@@ -1,6 +1,6 @@
 {
   "name": "WebRank",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "for alexa and similarweb",
   "scripts": {
     "start": "node app.js"
@@ -22,8 +22,5 @@
     "xml2js": "^0.4.17"
   },
   "license": "CC-BY-NC-SA-4.0",
-  "repository": {},
-  "engines": {
-    "node": "5.9.x"
-  }
+  "repository": {}
 }

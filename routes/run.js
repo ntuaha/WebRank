@@ -47,11 +47,11 @@ function extractInfo(in_file,company){
               "link": jthis.find("a:eq(1)").attr("href")
             };
           });
-          for (var j = 0; j<5;j++){
+          for (var j = 0; j<Top_Keywords_From_SE.length;j++){
             data["Top_Keywords_From_SE_"+(j+1)] = Top_Keywords_From_SE[j].count + " || " + Top_Keywords_From_SE[j].title + " || " + Top_Keywords_From_SE[j].percent;
           }
 
-          for (var i =0;i<5;i++){
+          for (var i =0;i<Linkin_Site.length;i++){
             data["Linkin_Site_"+(i+1)] = Linkin_Site[i].count + " || " + Linkin_Site[i].host + " || " + Linkin_Site[i].link;
           }
 
@@ -78,7 +78,8 @@ function extractData(href,time_string,company){
     var html_filepath = __dirname+"/../rawdata/"+company+"_"+time_string+".html";
     var childArgs = [
       exec_js_path,
-      [href,html_filepath]
+      //[href,html_filepath]
+      [href,html_filepath].join(",")
     ];
     childProcess.execFile(phantomjs.path, childArgs, function(err, stdout, stderr) {
       if(err){
